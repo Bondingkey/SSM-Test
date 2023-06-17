@@ -1,6 +1,7 @@
 package com.gzc.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -21,10 +22,31 @@ public class HelloController {
     }
 
     @RequestMapping("/HelloController")
-    public String succes(){
+    public String success(){
         System.out.println("页面跳转成功");
         //执行完里面的语句之后,想跳转到哪里就写上那里的逻辑地址
-        //跳转到succes页面
+        //跳转到success页面
+        return "succes";
+    }
+
+    @RequestMapping("/toEmpListPages")
+    public String toemplistpage(){
+        return "emplist";
+    }
+
+    //?代表匹配一个字符
+    //*代表匹配任意字符
+    //**代表匹配多重路径
+    @RequestMapping("/testant/**")
+    public String testAnt(){
+        return "succes";
+    }
+
+    //@PathVariable用于获取URL中占位符参数的值,写在参数的前面,参数类型不匹配报400
+    //required设置当前参数是否必须入参【默认值：true】,如果是true又不传参报500,如果是false则可以不传参,系统会自动装配null
+    @RequestMapping("/testPathVariable/{id}")
+    public String testPathVariable(@PathVariable(value = "id",required = false) Integer id){
+        System.out.println("id = " + id);
         return "succes";
     }
 }
